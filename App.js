@@ -11,8 +11,7 @@ import {Platform, StyleSheet, Text, View, Image, Dimensions, FlatList} from 'rea
 
 const width = Dimensions.get('screen').width;
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   render() {
       const fotos = [{id: 1, usuario: 'matheus'}
       ,{id: 2, usuario: 'ronaldo'}
@@ -24,9 +23,13 @@ export default class App extends Component<Props> {
             data={fotos}
             renderItem={ ({item}) =>
             <View>
-                <Text>{item.usuario}</Text>
+                <View style={styles.header}>
+                    <Image source={require('./resources/img/alura.jpg')}
+                        style={styles.profilePhoto}/>
+                    <Text>{item.usuario}</Text>
+                </View>
                 <Image source={require('./resources/img/alura.jpg')}
-                    style={{width: width, height: width}}/>
+                    style={styles.postPhoto}/>
             </View>
             }
         />
@@ -35,5 +38,19 @@ export default class App extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-
+    header: {
+        margin: 10,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    profilePhoto: {
+        marginRight: 10,
+        borderRadius: 20,
+        width: 40,
+        height: 40
+    },
+    postPhoto: {
+        width: width,
+        height: width
+    }
 });
