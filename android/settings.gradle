@@ -1,0 +1,3 @@
+rootProject.name = 'InstartoriMobile'
+
+include ':app'
