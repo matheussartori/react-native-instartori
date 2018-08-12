@@ -20,26 +20,18 @@ export default class Post extends Component {
     }
 
     showLikers(likers) {
-        if(likers.length <= 0)
-            return;
-
-        return (
+        return likers.length > 0 &&
             <Text style={styles.likes}>
                 {likers.length} {likers.length > 1 ? 'curtidas' : 'curtida'}
             </Text>
-        );
     }
 
     showCaption(foto) {
-        if(foto.comentario === '')
-            return;
-
-        return (
+        return foto.comentario !== '' &&
             <View style={styles.comment}>
                 <Text style={styles.commentTitle}>{foto.loginUsuario}</Text>
                 <Text>{foto.comentario}</Text>
             </View>
-        );
     }
 
     like() {
