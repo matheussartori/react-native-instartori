@@ -79,6 +79,13 @@ export default class Post extends Component {
 
                     {this.showLikers(foto.likers)}
                     {this.showCaption(foto)}
+
+                    {foto.comentarios.map(comentario =>
+                        <View style={styles.comment} key={comentario.id}>
+                            <Text style={styles.commentTitle}>{comentario.login}</Text>
+                            <Text>{comentario.texto}</Text>
+                        </View>
+                    )}
                 </View>
             </View>
         );
