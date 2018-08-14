@@ -7,7 +7,8 @@ export default class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            foto: this.props.foto
+            foto: this.props.foto,
+            commentValue: ''
         }
     }
 
@@ -58,6 +59,25 @@ export default class Post extends Component {
         this.setState({foto: updatedFoto})
     }
 
+    addComment() {
+        if(this.state.commentValue === '')
+            return;
+        
+        const novaLista = [...this.state.foto.comentarios, {
+            id: this.state.commentValue,
+            login: 'meuUsuario',
+            texto: this.state.commentValue
+        }];
+
+        const fotoAtualizada = {
+            ...this.state.foto,
+            comentarios: novaLista
+        }
+
+        this.setState({foto: fotoAtualizada, commentValue: ''});
+        this.commentInput.clear();
+    }
+
     render() {
         const { foto } = this.state;
 
@@ -89,10 +109,14 @@ export default class Post extends Component {
 
                     <View style={styles.newComment}>
                         <TextInput style={styles.commentInput}
-                            placeholder="Adicione um comentário..." />
+                            placeholder="Adicione um comentário..."
+                            ref={input => this.commentInput = input}
+                            onChangeText={texto => this.setState({commentValue: texto})} />
 
-                        <Image style={styles.commentIcon}
-                            source={require('../../resources/img/send.png')} />
+                        <TouchableOpacity onPress={this.addComment.bind(this)}>
+                            <Image style={styles.commentIcon}
+                                source={require('../../resources/img/send.png')} />
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
