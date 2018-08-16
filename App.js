@@ -22,7 +22,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        fetch('http://instalura-api.herokuapp.com/api/public/fotos/rafael')
+        fetch('http://192.168.1.103:8080/api/public/fotos/mssartori')
             .then(response => response.json())
             .then(json => this.setState({fotos: json}))
             .catch(error => console.error(error));

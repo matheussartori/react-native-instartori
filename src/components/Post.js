@@ -62,7 +62,7 @@ export default class Post extends Component {
     addComment() {
         if(this.state.commentValue === '')
             return;
-        
+
         const novaLista = [...this.state.foto.comentarios, {
             id: this.state.commentValue,
             login: 'meuUsuario',
@@ -111,7 +111,8 @@ export default class Post extends Component {
                         <TextInput style={styles.commentInput}
                             placeholder="Adicione um comentário..."
                             ref={input => this.commentInput = input}
-                            onChangeText={texto => this.setState({commentValue: texto})} />
+                            onChangeText={texto => this.setState({commentValue: texto})}
+                            underlineColorAndroid="transparent" />
 
                         <TouchableOpacity onPress={this.addComment.bind(this)}>
                             <Image style={styles.commentIcon}
