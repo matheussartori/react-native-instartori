@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, Dimensions, FlatList, TouchableOpacity, TextInput} from 'react-native';
 
+import CommentInput from './CommentInput';
+
 const width = Dimensions.get('screen').width;
 
 export default class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            foto: this.props.foto,
-            commentValue: ''
+            foto: this.props.foto
         }
     }
 
@@ -59,14 +60,14 @@ export default class Post extends Component {
         this.setState({foto: updatedFoto})
     }
 
-    addComment() {
-        if(this.state.commentValue === '')
+    addComment(commentValue, commentInput) {
+        if(commentValue === '')
             return;
 
         const novaLista = [...this.state.foto.comentarios, {
-            id: this.state.commentValue,
+            id: commentValue,
             login: 'meuUsuario',
-            texto: this.state.commentValue
+            texto: commentValue
         }];
 
         const fotoAtualizada = {
@@ -74,8 +75,8 @@ export default class Post extends Component {
             comentarios: novaLista
         }
 
-        this.setState({foto: fotoAtualizada, commentValue: ''});
-        this.commentInput.clear();
+        this.setState({foto: fotoAtualizada});
+        commentInput.clear();
     }
 
     render() {
@@ -107,18 +108,7 @@ export default class Post extends Component {
                         </View>
                     )}
 
-                    <View style={styles.newComment}>
-                        <TextInput style={styles.commentInput}
-                            placeholder="Adicione um comentário..."
-                            ref={input => this.commentInput = input}
-                            onChangeText={texto => this.setState({commentValue: texto})}
-                            underlineColorAndroid="transparent" />
-
-                        <TouchableOpacity onPress={this.addComment.bind(this)}>
-                            <Image style={styles.commentIcon}
-                                source={require('../../resources/img/send.png')} />
-                        </TouchableOpacity>
-                    </View>
+                    <CommentInput commentCallback={this.addComment.bind(this)}/>
                 </View>
             </View>
         );
@@ -159,19 +149,5 @@ const styles = StyleSheet.create({
     commentTitle: {
         fontWeight: 'bold',
         marginRight: 5
-    },
-    newComment: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd'
-    },
-    commentInput: {
-        flex: 1,
-        height: 40
-    },
-    commentIcon: {
-        width: 30,
-        height: 30
     }
 });
